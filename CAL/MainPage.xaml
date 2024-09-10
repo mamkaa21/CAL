@@ -20,8 +20,8 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Grid.ColumnSpan="5" x:Name="EntryBox"/>
-        <Label Grid.ColumnSpan="5" x:Name="label" Grid.Row="1"/>
+        <Label Grid.ColumnSpan="5" x:Name="EntryBox" FontSize="32"/>
+        <Label Grid.ColumnSpan="5" x:Name="label" Grid.Row="1" FontSize="26"/>
         <Button Grid.Row="2" Grid.Column="0" Text="←" Clicked="Back" BorderColor="Black" BorderWidth="5" BackgroundColor="Gray"/>
         <Button Grid.Row="2" Grid.Column="1" Text="CE" Clicked="CE" BorderColor="Black" BorderWidth="5" BackgroundColor="Gray"/>
         <Button Grid.Row="2" Grid.Column="2" Text="C"  Clicked="C" BorderColor="Black" BorderWidth="5" BackgroundColor="Gray"/>

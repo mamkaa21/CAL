@@ -24,6 +24,7 @@ namespace CAL
             operation = ' ';
             x = 0;
             EntryBox.Text = null;
+            label.Text = null;
         }     
 
         private void PlusAndMinus(object sender, EventArgs e)
@@ -39,6 +40,7 @@ namespace CAL
             operation = ' ';
             x = 0;
             EntryBox.Text = null;
+            label.Text = null;
         }
 
         private void Koren(object sender, EventArgs e)
@@ -87,6 +89,7 @@ namespace CAL
                 
             }
             EntryBox.Text = result.ToString();
+            label.Text = null;
         }
 
         private void Dot(object sender, EventArgs e)
