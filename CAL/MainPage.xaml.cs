@@ -17,14 +17,13 @@ namespace CAL
 
         public void History()
         {
-            label.Text = EntryBox.Text + operation;
+            label.Text += EntryBox.Text + operation;
         }
         private void CE(object sender, EventArgs e)
         {
-            operation = ' ';
-            x = 0;
-            EntryBox.Text = null;
-            label.Text = null;
+          
+            EntryBox.Text = "";
+          
         }     
 
         private void PlusAndMinus(object sender, EventArgs e)
@@ -33,26 +32,32 @@ namespace CAL
                 EntryBox.Text = EntryBox.Text.Remove(0, 1);
             else
                 EntryBox.Text = "-" + EntryBox.Text;
+            isoperation = false;
         }
 
         private void C(object sender, EventArgs e)
         {
             operation = ' ';
             x = 0;
-            EntryBox.Text = null;
-            label.Text = null;
+            EntryBox.Text = "";
+            label.Text = "";
+            count = 0;
+            isoperation = false;
         }
 
         private void Koren(object sender, EventArgs e)
         {
             double.TryParse(EntryBox.Text, out double y);
             EntryBox.Text = (Math.Sqrt(y)).ToString();
+            isoperation = false;
         }
 
         private void ClickNumber(object sender, EventArgs e)
-        {
+        {  
+            isoperation = false;
             Button button = (Button)sender;
             EntryBox.Text += button.Text.ToString();
+          
         }
 
         private void Procent(object sender, EventArgs e)
@@ -60,16 +65,19 @@ namespace CAL
             double procent1 = x / 100;
             double.TryParse(EntryBox.Text, out double y);
             EntryBox.Text = (y * procent1).ToString();
+            isoperation = false;
         }
 
         private void Drob(object sender, EventArgs e)
         {
             double.TryParse(EntryBox.Text, out double y);
             EntryBox.Text = (1 / y).ToString();
+            isoperation = false;
         }
 
         private void Ravno(object sender, EventArgs e)
-        {
+        {    
+            //isoperation = false;
             double result = 0;
             double.TryParse(EntryBox.Text, out double y);
             switch (operation)
@@ -85,11 +93,17 @@ namespace CAL
                     break;
                 case '/':
                     result = x / y;
-                    break;
-                
+                    break;                
             }
             EntryBox.Text = result.ToString();
-            label.Text = null;
+            if(sender != null)
+            {
+                label.Text = "";
+                count = 0;               
+            } 
+         
+            x = result;
+
         }
 
         private void Dot(object sender, EventArgs e)
@@ -102,13 +116,28 @@ namespace CAL
 
         double x = 0;
         char operation = ' ';
+        bool isoperation = false;
+        int count;
         private void ClickOperation(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            operation = button.Text.ToString()[0];
-            double.TryParse(EntryBox.Text, out x);
-            History();
-            EntryBox.Text = null;
+            operation = button.Text.ToString()[0];                      
+            if (!isoperation)
+            {
+                if (count <= 1)
+                { 
+                    double.TryParse(EntryBox.Text, out x); 
+                }
+                count++;
+                if (count > 1)
+                {
+                    Ravno(null, new EventArgs());
+                }
+                History();
+                EntryBox.Text = "";             
+                isoperation = true;
+            }
+         
         }
     }
 }
