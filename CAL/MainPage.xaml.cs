@@ -4,6 +4,11 @@ namespace CAL
 {
     public partial class MainPage : ContentPage
     {
+        double x = 0;
+        char operation = ' ';
+        bool isoperation = false;
+        int count;
+
         public MainPage()
         {
             InitializeComponent();
@@ -17,13 +22,20 @@ namespace CAL
 
         public void History()
         {
-            label.Text += EntryBox.Text + operation;
+            if (!isoperation)
+            {
+                label.Text += EntryBox.Text + operation;
+            }
+            else
+            {
+                label.Text = label.Text.Remove(label.Text.Length - 1);
+                label.Text += operation;
+            }
         }
+
         private void CE(object sender, EventArgs e)
         {
-          
             EntryBox.Text = "";
-          
         }     
 
         private void PlusAndMinus(object sender, EventArgs e)
@@ -56,8 +68,7 @@ namespace CAL
         {  
             isoperation = false;
             Button button = (Button)sender;
-            EntryBox.Text += button.Text.ToString();
-          
+            EntryBox.Text += button.Text.ToString();    
         }
 
         private void Procent(object sender, EventArgs e)
@@ -113,31 +124,29 @@ namespace CAL
                 EntryBox.Text += ",";
             }
         }
-
-        double x = 0;
-        char operation = ' ';
-        bool isoperation = false;
-        int count;
+        
         private void ClickOperation(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            operation = button.Text.ToString()[0];                      
+            operation = button.Text.ToString()[0];
             if (!isoperation)
             {
-                if (count <= 1)
-                { 
-                    double.TryParse(EntryBox.Text, out x); 
+                if (count < 1)
+                {
+                    double.TryParse(EntryBox.Text, out x);
                 }
                 count++;
+                History();
                 if (count > 1)
                 {
                     Ravno(null, new EventArgs());
                 }
-                History();
-                EntryBox.Text = "";             
+                EntryBox.Text = "";
                 isoperation = true;
+
             }
-         
+            else
+                History();
         }
     }
 }
